@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Services from './Services';
+import Contact from './Contact';
 
 function HeroHome() {
   const navigate = useNavigate();
@@ -122,19 +123,18 @@ function HeroHome() {
         width: '100%',
         boxSizing: 'border-box'
       }}>
-        <div style={{ fontSize: '26px', fontWeight: '900', letterSpacing: '2px' }}>
+        <Link to="/" style={{ textDecoration: 'none', color: 'white', fontSize: '26px', fontWeight: '900', letterSpacing: '2px' }}>
           FRANK'S <span style={{ color: '#db2777' }}>NAILS</span>
-        </div>
+        </Link>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '48px' }}>
           <nav style={{ display: 'flex', gap: '36px', fontSize: '16px' }}>
             <Link to="/" className="nav-link">Home</Link>
-            <Link to="/services" className="nav-link">Services</Link>
-            <Link to="/" className="nav-link">Gallery</Link>
-            <Link to="/" className="nav-link">Contact</Link>
+            <Link to="/services" className="nav-link">Gallery</Link>
+            <Link to="/contact" className="nav-link">Contact</Link>
           </nav>
 
-          <button className="btn-nav-book">
+          <button className="btn-nav-book" onClick={() => navigate('/contact')}>
             Book Appointment
           </button>
         </div>
@@ -198,7 +198,7 @@ function HeroHome() {
           <button className="btn-primary" onClick={() => navigate('/services')}>
             Explore Services
           </button>
-          <button className="btn-contact">
+          <button className="btn-contact" onClick={() => navigate('/contact')}>
             Contact Frank
           </button>
         </div>
@@ -224,6 +224,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<HeroHome />} />
       <Route path="/services" element={<Services />} />
+      <Route path="/contact" element={<Contact />} />
     </Routes>
   );
 }
