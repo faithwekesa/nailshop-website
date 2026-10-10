@@ -1,6 +1,10 @@
 import React from 'react';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import Services from './Services';
 
-export default function App() {
+function HeroHome() {
+  const navigate = useNavigate();
+  
   return (
     <div style={{
       position: 'relative',
@@ -13,7 +17,6 @@ export default function App() {
       flexDirection: 'column',
       justifyContent: 'space-between'
     }}>
-      {/* Luxury Brand Styling Engine */}
       <style>{`
         .nav-link {
           color: #f1f5f9 !important;
@@ -26,7 +29,6 @@ export default function App() {
           color: #f472b6 !important;
           transform: translateY(-1px);
         }
-        
         .btn-primary {
           background-color: #db2777;
           color: white;
@@ -51,7 +53,6 @@ export default function App() {
           transition: all 0.25s ease;
           box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
         }
-
         .button-group:has(.btn-contact:hover) .btn-primary {
           background-color: #ffffff;
           color: #db2777;
@@ -64,13 +65,11 @@ export default function App() {
           transform: translateY(-3px);
           box-shadow: 0 6px 20px rgba(219, 39, 119, 0.5);
         }
-
         .btn-primary:hover {
           background-color: #be185d;
           transform: translateY(-3px);
           box-shadow: 0 6px 20px rgba(190, 24, 93, 0.6);
         }
-
         .btn-nav-book {
           background-color: #ffffff;
           color: #0f172a;
@@ -89,7 +88,6 @@ export default function App() {
           transform: translateY(-2px);
           box-shadow: 0 6px 16px rgba(219, 39, 119, 0.4);
         }
-
         .luxury-gradient-text {
           background: linear-gradient(135deg, #ff94c2 0%, #ffffff 100%);
           -webkit-background-clip: text;
@@ -97,7 +95,6 @@ export default function App() {
         }
       `}</style>
 
-      {/* Full-Screen Hero Background Image */}
       <div style={{
         position: 'absolute',
         inset: 0,
@@ -108,7 +105,6 @@ export default function App() {
         zIndex: 1
       }} />
       
-      {/* Opacity Tint Overlay */}
       <div style={{
         position: 'absolute',
         inset: 0,
@@ -116,7 +112,6 @@ export default function App() {
         zIndex: 2
       }} />
 
-      {/* Navigation Header */}
       <header style={{
         position: 'relative',
         zIndex: 3,
@@ -133,10 +128,10 @@ export default function App() {
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '48px' }}>
           <nav style={{ display: 'flex', gap: '36px', fontSize: '16px' }}>
-            <a href="#home" className="nav-link">Home</a>
-            <a href="#services" className="nav-link">Services</a>
-            <a href="#gallery" className="nav-link">Gallery</a>
-            <a href="#contact" className="nav-link">Contact</a>
+            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/services" className="nav-link">Services</Link>
+            <Link to="/" className="nav-link">Gallery</Link>
+            <Link to="/" className="nav-link">Contact</Link>
           </nav>
 
           <button className="btn-nav-book">
@@ -145,7 +140,6 @@ export default function App() {
         </div>
       </header>
 
-      {/* Hero Content Section */}
       <main style={{
         position: 'relative',
         zIndex: 3,
@@ -159,7 +153,6 @@ export default function App() {
         margin: 'auto',
         boxSizing: 'border-box'
       }}>
-        {/* 🛠️ FIXED: Completely Colorless Location Tag with a Sleek Transparent Border */}
         <div style={{
           backgroundColor: 'transparent',
           border: '1px solid rgba(255, 255, 255, 0.3)',
@@ -175,7 +168,6 @@ export default function App() {
           Kahawa Wendani, Nairobi
         </div>
 
-        {/* Typography Headline */}
         <h1 style={{
           fontSize: '82px',
           fontWeight: '900',
@@ -189,7 +181,6 @@ export default function App() {
           <span className="luxury-gradient-text">Beautifully done.</span>
         </h1>
 
-        {/* Subtitle Paragraph */}
         <p style={{
           color: '#e2e8f0',
           fontSize: '21px',
@@ -203,9 +194,8 @@ export default function App() {
           Stilettos, French tips, florals and custom nail art, finished by hand to match your style.
         </p>
 
-        {/* Interactive Action Buttons */}
         <div className="button-group" style={{ display: 'flex', gap: '20px' }}>
-          <button className="btn-primary">
+          <button className="btn-primary" onClick={() => navigate('/services')}>
             Explore Services
           </button>
           <button className="btn-contact">
@@ -214,7 +204,6 @@ export default function App() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer style={{
         position: 'relative',
         zIndex: 3,
@@ -227,5 +216,14 @@ export default function App() {
         © {new Date().getFullYear()} Frank's Nails. All rights reserved.
       </footer>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HeroHome />} />
+      <Route path="/services" element={<Services />} />
+    </Routes>
   );
 }
