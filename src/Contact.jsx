@@ -23,7 +23,7 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    const baseMessage = `Hello Frank's Nails, I would like to book an appointment.\n\n` +
+    const baseMessage = `Hello Frank's Nails, I would like to make enquiries.\n\n` +
       `• Name: ${formData.firstName} ${formData.lastName}\n` +
       `• Phone: ${formData.phone}\n` +
       `• Set Style: ${formData.design}\n` +
@@ -233,20 +233,20 @@ export default function Contact() {
           
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: '32px', textAlign: 'left' }}>
-              <h2 style={{ fontSize: '28px', fontWeight: '900', margin: '0 0 6px 0', color: '#000000', letterSpacing: '-0.5px' }}>Book Appointment</h2>
+              <h2 style={{ fontSize: '28px', fontWeight: '900', margin: '0 0 6px 0', color: '#000000', letterSpacing: '-0.5px' }}>Reach Out To Frank</h2>
               <p style={{ color: '#000000', fontSize: '14.5px', margin: 0, fontWeight: '700', lineHeight: '1.5' }}>
-                Fill your details below to submit your appointment request directly to Frank via WhatsApp.
+                Fill your details below to submit your enquiry directly to Frank via WhatsApp.
               </p>
             </div>
 
             <div className="form-row">
               <div className="form-col input-group">
                 <label className="input-label">First Name</label>
-                <input type="text" name="firstName" required placeholder="e.g. Jane" value={formData.firstName} onChange={handleInputChange} className="form-input" />
+                <input type="text" name="firstName" required placeholder="enter your first name" value={formData.firstName} onChange={handleInputChange} className="form-input" />
               </div>
               <div className="form-col input-group">
                 <label className="input-label">Last Name</label>
-                <input type="text" name="lastName" required placeholder="e.g. Doe" value={formData.lastName} onChange={handleInputChange} className="form-input" />
+                <input type="text" name="lastName" required placeholder="enter your last name" value={formData.lastName} onChange={handleInputChange} className="form-input" />
               </div>
             </div>
 
