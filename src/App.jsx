@@ -25,11 +25,30 @@ function HeroHome() {
           font-weight: 600;
           letter-spacing: 0.5px;
           transition: all 0.25s ease;
+          display: flex;
+          align-items: center;
         }
         .nav-link:hover {
           color: #f472b6 !important;
-          transform: translateY(-1px);
         }
+        
+        .home-brand-header {
+          position: relative;
+          z-index: 3;
+          display: flex !important;
+          justify-content: space-between !important;
+          align-items: center !important;
+          padding: 28px 48px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .home-header-navigation {
+          display: flex !important;
+          flex-direction: row !important;
+          gap: 48px !important;
+          align-items: center !important;
+        }
+
         .btn-primary {
           background-color: #db2777;
           color: white;
@@ -41,6 +60,11 @@ function HeroHome() {
           cursor: pointer;
           transition: all 0.25s ease;
           box-shadow: 0 4px 14px rgba(219, 39, 119, 0.4);
+        }
+        .btn-primary:hover {
+          background-color: #be185d;
+          transform: translateY(-3px);
+          box-shadow: 0 6px 20px rgba(190, 24, 93, 0.6);
         }
         .btn-contact {
           background-color: #ffffff;
@@ -66,33 +90,24 @@ function HeroHome() {
           transform: translateY(-3px);
           box-shadow: 0 6px 20px rgba(219, 39, 119, 0.5);
         }
-        .btn-primary:hover {
-          background-color: #be185d;
-          transform: translateY(-3px);
-          box-shadow: 0 6px 20px rgba(190, 24, 93, 0.6);
-        }
-        .btn-nav-book {
-          background-color: #ffffff;
-          color: #0f172a;
-          border: none;
-          padding: 10px 24px;
-          border-radius: 9999px;
-          font-size: 14px;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.25s ease;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        .btn-nav-book:hover {
-          background-color: #db2777;
-          color: #ffffff;
-          transform: translateY(-2px);
-          box-shadow: 0 6px 16px rgba(219, 39, 119, 0.4);
-        }
         .luxury-gradient-text {
           background: linear-gradient(135deg, #ff94c2 0%, #ffffff 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 680px) {
+          .home-brand-header {
+            flex-direction: column !important;
+            gap: 16px !important;
+            padding: 20px 24px !important;
+            text-align: center;
+          }
+          .home-header-navigation {
+            gap: 24px !important;
+            justify-content: center !important;
+            width: 100%;
+          }
         }
       `}</style>
 
@@ -113,33 +128,18 @@ function HeroHome() {
         zIndex: 2
       }} />
 
-      <header style={{
-        position: 'relative',
-        zIndex: 3,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '28px 48px',
-        width: '100%',
-        boxSizing: 'border-box'
-      }}>
-        <Link to="/" style={{ textDecoration: 'none', color: 'white', fontSize: '26px', fontWeight: '900', letterSpacing: '2px' }}>
+      <header className="home-brand-header">
+        <Link to="/" style={{ textDecoration: 'none', color: 'white', fontSize: '26px', fontWeight: '900', letterSpacing: '2px', lineHeight: '1.2' }}>
           FRANK'S <span style={{ color: '#db2777' }}>NAILS</span>
         </Link>
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: '48px' }}>
-          <nav style={{ display: 'flex', gap: '36px', fontSize: '16px' }}>
+        <div>
+          <nav className="home-header-navigation">
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/services" className="nav-link">Gallery</Link>
-            <Link to="/contact" className="nav-link">Contact</Link>
+            <Link to="/contact" className="nav-link" style={{ background: '#db2777', color: 'white !important', padding: '10px 24px', borderRadius: '9999px', fontWeight: '700', fontSize: '14px', display: 'flex', alignItems: 'center' }}>Contact</Link>
           </nav>
-
-          <button className="btn-nav-book" onClick={() => navigate('/contact')}>
-            Book Appointment
-          </button>
         </div>
       </header>
-
       <main style={{
         position: 'relative',
         zIndex: 3,
@@ -228,3 +228,4 @@ export default function App() {
     </Routes>
   );
 }
+
