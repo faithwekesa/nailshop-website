@@ -22,11 +22,13 @@ function HeroHome() {
         .nav-link {
           color: #f1f5f9 !important;
           text-decoration: none;
-          font-weight: 600;
+          font-weight: 700;
           letter-spacing: 0.5px;
           transition: all 0.25s ease;
           display: flex;
           align-items: center;
+          font-size: 16px;
+          white-space: nowrap;
         }
         .nav-link:hover {
           color: #f472b6 !important;
@@ -36,6 +38,7 @@ function HeroHome() {
           position: relative;
           z-index: 3;
           display: flex !important;
+          flex-direction: row !important;
           justify-content: space-between !important;
           align-items: center !important;
           padding: 28px 48px;
@@ -45,8 +48,17 @@ function HeroHome() {
         .home-header-navigation {
           display: flex !important;
           flex-direction: row !important;
-          gap: 48px !important;
+          gap: 36px !important;
           align-items: center !important;
+        }
+        .brand-logo-text {
+          text-decoration: none;
+          color: white;
+          font-size: 26px;
+          font-weight: 900;
+          letter-spacing: 2px;
+          line-height: 1.2;
+          white-space: nowrap;
         }
 
         .btn-primary {
@@ -98,15 +110,25 @@ function HeroHome() {
 
         @media (max-width: 680px) {
           .home-brand-header {
-            flex-direction: column !important;
-            gap: 16px !important;
-            padding: 20px 24px !important;
-            text-align: center;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 16px 16px !important;
+          }
+          .brand-logo-text {
+            font-size: 18px !important;
+            letter-spacing: 1px !important;
           }
           .home-header-navigation {
-            gap: 24px !important;
-            justify-content: center !important;
-            width: 100%;
+            gap: 12px !important;
+          }
+          .nav-link {
+            font-size: 13.5px !important;
+          }
+          .contact-link-btn {
+            padding: 6px 14px !important;
+            font-size: 13px !important;
           }
         }
       `}</style>
@@ -129,14 +151,14 @@ function HeroHome() {
       }} />
 
       <header className="home-brand-header">
-        <Link to="/" style={{ textDecoration: 'none', color: 'white', fontSize: '26px', fontWeight: '900', letterSpacing: '2px', lineHeight: '1.2' }}>
+        <Link to="/" className="brand-logo-text">
           FRANK'S <span style={{ color: '#db2777' }}>NAILS</span>
         </Link>
         <div>
           <nav className="home-header-navigation">
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/services" className="nav-link">Gallery</Link>
-            <Link to="/contact" className="nav-link" style={{ background: '#db2777', color: 'white !important', padding: '10px 24px', borderRadius: '9999px', fontWeight: '700', fontSize: '14px', display: 'flex', alignItems: 'center' }}>Contact</Link>
+            <Link to="/contact" className="nav-link contact-link-btn" style={{ background: '#db2777', color: 'white !important', padding: '10px 24px', borderRadius: '9999px', fontWeight: '700', fontSize: '14px', display: 'flex', alignItems: 'center' }}>Contact</Link>
           </nav>
         </div>
       </header>
@@ -148,7 +170,7 @@ function HeroHome() {
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        padding: '40px 20px',
+        padding: '20px',
         maxWidth: '850px',
         margin: 'auto',
         boxSizing: 'border-box'
@@ -163,17 +185,17 @@ function HeroHome() {
           fontWeight: '700',
           textTransform: 'uppercase',
           letterSpacing: '2px',
-          marginBottom: '28px'
+          marginBottom: '24px'
         }}>
           Kahawa Wendani, Nairobi
         </div>
 
         <h1 style={{
-          fontSize: '82px',
+          fontSize: 'clamp(36px, 8vw, 82px)',
           fontWeight: '900',
-          lineHeight: '1.05',
-          margin: '0 0 24px 0',
-          letterSpacing: '-2px',
+          lineHeight: '1.1',
+          margin: '0 0 20px 0',
+          letterSpacing: '-1px',
           color: '#ffffff',
           filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.4))'
         }}>
@@ -183,10 +205,10 @@ function HeroHome() {
 
         <p style={{
           color: '#e2e8f0',
-          fontSize: '21px',
-          lineHeight: '1.6',
+          fontSize: 'clamp(15px, 4vw, 21px)',
+          lineHeight: '1.5',
           maxWidth: '680px',
-          margin: '0 0 44px 0',
+          margin: '0 0 36px 0',
           fontWeight: '400',
           letterSpacing: '0.2px',
           filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.5))'
@@ -194,7 +216,7 @@ function HeroHome() {
           Stilettos, French tips, florals and custom nail art, finished by hand to match your style.
         </p>
 
-        <div className="button-group" style={{ display: 'flex', gap: '20px' }}>
+        <div className="button-group" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
           <button className="btn-primary" onClick={() => navigate('/services')}>
             Explore Services
           </button>
