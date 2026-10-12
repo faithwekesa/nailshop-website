@@ -215,11 +215,11 @@ export default function Contact() {
           align-items: center;
           justify-content: center;
           width: 100%;
-          padding: 14px 24px;
-          border: 2px solid transparent;
+          padding: 10px 20px;
+          border: 1.5px solid transparent;
           border-radius: 9999px;
           font: inherit;
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 600;
           text-decoration: none;
           cursor: pointer;
