@@ -105,8 +105,8 @@ function Home() {
         color: '#ffffff',
         filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.4))'
       }}>
-        Bold nails.<br />
-        <span className="luxury-gradient-text">Beautifully done.</span>
+        Bold nails<br />
+        <span className="luxury-gradient-text">Beautifully done</span>
       </h1>
 
       <p style={{
