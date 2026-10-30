@@ -1,8 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
 
-const url = import.meta.env.VITE_SUPABASE_URL;
-const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const url = String(import.meta.env.VITE_SUPABASE_URL || '').trim();
+const key = String(import.meta.env.VITE_SUPABASE_ANON_KEY || '').trim();
 
-export const supabaseReady = Boolean(url && key);
+let client = null;
+try {
+  if (/^https?:\/\/\S+$/.test(url) && key) client = createClient(url, key);
+} catch {
+  client = null;
+}
 
-export const supabase = supabaseReady ? createClient(url, key) : null;
+export const supabase = client;
+export const supabaseReady = Boolean(client);
