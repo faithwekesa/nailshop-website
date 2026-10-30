@@ -11,6 +11,8 @@ import {
 } from 'react-router-dom';
 import Services from './Services';
 import Contact from './Contact';
+import Book from './Book';
+import Admin from './Admin';
 const LOCATION_NAME = 'Kahawa Wendani, Nairobi';
 
 const navClass = ({ isActive }) => `sh-link ${isActive ? 'active' : ''}`;
@@ -49,8 +51,11 @@ function Header() {
           <NavLink to="/services" className={navClass}>
             Gallery
           </NavLink>
-          <NavLink to="/contact" className={({ isActive }) => `sh-link pill ${isActive ? 'active' : ''}`}>
+          <NavLink to="/contact" className={navClass}>
             Contact
+          </NavLink>
+          <NavLink to="/book" className={({ isActive }) => `sh-link pill ${isActive ? 'active' : ''}`}>
+            Book now
           </NavLink>
         </nav>
       </div>
@@ -105,8 +110,8 @@ function Home() {
         color: '#ffffff',
         filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.4))'
       }}>
-        Bold nails<br />
-        <span className="luxury-gradient-text">Beautifully done</span>
+        Bold nails.<br />
+        <span className="luxury-gradient-text">Beautifully done.</span>
       </h1>
 
       <p style={{
@@ -126,8 +131,8 @@ function Home() {
         <button className="btn-primary" onClick={() => navigate('/services')}>
           Explore Services
         </button>
-        <button className="btn-contact" onClick={() => navigate('/contact')}>
-          Contact Frank
+        <button className="btn-contact" onClick={() => navigate('/book')}>
+          Book Appointment
         </button>
       </div>
     </div>
@@ -434,6 +439,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/book" element={<Book />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

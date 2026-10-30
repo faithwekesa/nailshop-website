@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-const WHATSAPP_NUMBER = '254712077837';
+import { Link } from 'react-router-dom';
 
 const lookbookData = [
   { id: 'l1', name: 'Modern Swirls Art', price: 'Ksh 3,500', image: '/french manicure/modernswirls.jpg', desc: 'Intricate custom line art patterns finished by hand to match your exact vibe.' },
   { id: 'l2', name: 'Signature French Tip', price: 'Ksh 2,000', image: '/french manicure/frenchmanicure1.jpeg', desc: 'A pristine, premium take on the timeless classic French tip aesthetic.' },
   { id: 'l3', name: 'Luxury Sculpted Stilettos', price: 'Ksh 2,500', image: '/french manicure/stiletto.png', desc: 'Extravagant high-fashion structural extensions crafted for ultimate drama.' },
   { id: 'l4', name: 'Floral Almond Inlays', price: 'Ksh 2,500', image: '/french manicure/florallongalmond.jpg', desc: 'Delicate hand-painted botanical art embedded beautifully within structured gel.' },
-  { id: 'l5', name: 'Wine Red Gloss Sets', price: 'Ksh 2,500', image: '/french manicure/winerednails.jpg', desc: 'Deep, luxurious wine tones finished with an ultra-high shine protective armor.' },
+  { id: 'l5', name: 'Wine Red Gloss Sets', price: 'Ksh 5,500', image: '/french manicure/winerednails.jpg', desc: 'Deep, luxurious wine tones finished with an ultra-high shine protective armor.' },
   { id: 'l6', name: 'Classic Crimson Accent', price: 'Ksh 2,000', image: '/french manicure/french.jpg', desc: 'Precision nail shaping, cuticle care, and nourishing spa hydration therapy.' },
   { id: 'l7', name: 'Minimalist Line Art', price: 'Ksh 2,500', image: '/french manicure/another.jpg', desc: 'Sleek geometric clean lines for a beautiful contemporary style profile.' },
   { id: 'l8', name: 'Waterfall Ombré Drop', price: 'Ksh 3,000', image: '/french manicure/waterfall.jpg', desc: 'Smooth cascading gradient tones transitioning seamlessly into customized tips.' },
@@ -26,11 +26,6 @@ export default function Services() {
       window.removeEventListener('keydown', onKey);
     };
   }, [selected]);
-
-  const bookLink = (name) =>
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-      `Hello Frank's Nails, I'd like to book the "${name}" set.`
-    )}`;
 
   return (
     <div className="gl-page">
@@ -213,15 +208,13 @@ export default function Services() {
                 </div>
 
                 <div className="gl-foot">
-                  <a
+                  <Link
                     className="gl-book"
-                    href={bookLink(item.name)}
-                    target="_blank"
-                    rel="noreferrer"
+                    to={`/book?style=${encodeURIComponent(item.name)}`}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    Book on WhatsApp
-                  </a>
+                    Book this style
+                  </Link>
                   <span className="gl-price">{item.price}</span>
                 </div>
               </div>
