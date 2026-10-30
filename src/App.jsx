@@ -88,8 +88,6 @@ const HOME_STEPS = [
 
 const STEP_COLORS = ['#ec4899', '#db2777', '#9d174d'];
 
-const WAVE_H = 'M -20 210 C 80 40 300 40 370 210 S 640 380 730 210 S 1010 40 1120 210';
-const WAVE_V = 'M 180 -20 C 20 90 20 260 180 360 S 340 640 180 720 S 20 980 180 1100';
 
 function Home() {
   const navigate = useNavigate();
@@ -156,79 +154,50 @@ function Home() {
         }
         .hm-lead { margin: 0 0 36px; max-width: 560px; color: #000000; font-size: 16px; line-height: 1.6; }
 
-        .hm-options {
+        .hm-gallery {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 22px;
-          margin-bottom: 32px;
+          gap: 16px;
+          margin-bottom: 28px;
         }
-        .hm-opt { display: block; text-decoration: none; color: inherit; }
-        .hm-opt-bar {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 4px;
-          border: 1.5px solid var(--c);
-          border-radius: 9999px;
-          transition: box-shadow 0.25s ease;
-        }
-        .hm-opt-num {
-          flex: none;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 42px;
-          height: 42px;
-          border-radius: 50%;
-          background: #ffffff;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-          color: var(--c);
-          font-size: 15px;
-          font-weight: 800;
-        }
-        .hm-opt-name {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-height: 42px;
-          padding: 4px 14px;
-          border-radius: 9999px;
-          background: var(--c);
-          color: #ffffff;
-          font-size: 13px;
-          font-weight: 800;
-          line-height: 1.15;
-          text-align: center;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-        .hm-opt-box {
-          margin-top: 10px;
-          padding: 10px;
-          border: 1.5px solid var(--c);
-          border-radius: 30px;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .hm-opt-box img {
+        .hm-shot {
+          position: relative;
           display: block;
-          width: 100%;
-          aspect-ratio: 4 / 5;
-          object-fit: cover;
-          border-radius: 22px;
+          aspect-ratio: 3 / 4;
+          overflow: hidden;
+          border-radius: 18px;
           background: #fdf2f8;
+          box-shadow: 0 0 0 rgba(219, 39, 119, 0);
+          transition: box-shadow 0.3s ease;
         }
-        .hm-opt:hover .hm-opt-box {
-          transform: translateY(-6px);
-          box-shadow: 0 16px 30px rgba(219, 39, 119, 0.2);
+        .hm-shot img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.4s ease;
         }
-        .hm-opt:hover .hm-opt-bar { box-shadow: 0 6px 16px rgba(219, 39, 119, 0.2); }
+        .hm-shot:hover img { transform: scale(1.05); }
+        .hm-shot:hover { box-shadow: 0 16px 32px rgba(219, 39, 119, 0.22); }
+        .hm-shot span {
+          position: absolute;
+          left: 10px;
+          right: 10px;
+          bottom: 10px;
+          padding: 7px 12px;
+          border-radius: 9999px;
+          background: #ffffff;
+          color: #000000;
+          font-size: 13px;
+          font-weight: 700;
+          text-align: center;
+        }
 
         .hm-flow {
           position: relative;
           container-type: inline-size;
           width: 100%;
-          aspect-ratio: 1100 / 420;
+          aspect-ratio: 1100 / 400;
           margin-bottom: 28px;
         }
         .hm-wave {
@@ -241,54 +210,43 @@ function Home() {
         .hm-wave-v { display: none; }
         .hm-wave .w-main {
           fill: none;
-          stroke-width: 16;
+          stroke-width: 18;
           stroke-linecap: round;
           stroke-dasharray: 1;
-          stroke-dashoffset: 1;
-          transition: stroke-dashoffset 1.8s ease;
+          stroke-dashoffset: 0;
+          transition: stroke-dashoffset 1.6s ease;
         }
         .hm-ready .hm-flow:not(.hm-in) .w-main { stroke-dashoffset: 1; }
-        .hm-flow.hm-in .w-main, .hm-page:not(.hm-ready) .w-main { stroke-dashoffset: 0; }
-        .hm-wave .w-thin {
-          fill: none;
-          stroke-width: 3;
-          stroke-linecap: round;
-          stroke-dasharray: 2 14;
-          opacity: 0.9;
-          animation: hm-flow 3.2s linear infinite;
+        .hm-wave .w-dot {
+          fill: #ffffff;
+          stroke: #db2777;
+          stroke-width: 4;
         }
-        .hm-wave .w-ring {
-          fill: none;
-          stroke-width: 10;
-          stroke-linecap: round;
-        }
-        @keyframes hm-flow { to { stroke-dashoffset: -64; } }
-
         .hm-orb {
           position: absolute;
           left: var(--x);
-          top: var(--y);
-          width: 24%;
+          top: 50%;
+          width: 22.7%;
           aspect-ratio: 1;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 4.4%;
+          padding: 3.4%;
           border-radius: 50%;
           background: #ffffff;
-          box-shadow: 0 14px 34px rgba(157, 23, 77, 0.18);
+          box-shadow: 0 10px 28px rgba(157, 23, 77, 0.18);
           text-align: center;
           transform: translate(-50%, -50%);
         }
-        .hm-orb-num { color: var(--c); font-size: 3.2cqw; font-weight: 800; line-height: 1; }
-        .hm-orb h3 { margin: 0.6cqw 0 0.5cqw; color: var(--c); font-size: 1.75cqw; font-weight: 800; line-height: 1.15; }
-        .hm-orb p { margin: 0; color: #000000; font-size: 1.32cqw; line-height: 1.45; }
-        .hm-orb:nth-of-type(1) { --x: 17.3%; --y: 50%; }
-        .hm-orb:nth-of-type(2) { --x: 50%; --y: 50%; }
-        .hm-orb:nth-of-type(3) { --x: 82.7%; --y: 50%; }
-        .hm-ready .hm-orb.hm-reveal { transform: translate(-50%, calc(-50% + 32px)); }
-        .hm-ready .hm-orb.hm-reveal.hm-in { transform: translate(-50%, -50%); }
+        .hm-orb-num { color: var(--c); font-size: 3cqw; font-weight: 800; line-height: 1; }
+        .hm-orb h3 { margin: 0.6cqw 0 0.5cqw; color: var(--c); font-size: 1.6cqw; font-weight: 800; line-height: 1.15; }
+        .hm-orb p { margin: 0; color: #000000; font-size: 1.22cqw; line-height: 1.45; }
+        .hm-orb:nth-of-type(1) { --x: 25%; }
+        .hm-orb:nth-of-type(2) { --x: 52.27%; }
+        .hm-orb:nth-of-type(3) { --x: 79.55%; }
+        .hm-ready .hm-orb.hm-reveal { transform: translate(-50%, calc(-50% + 24px)); opacity: 0; }
+        .hm-ready .hm-orb.hm-reveal.hm-in { transform: translate(-50%, -50%); opacity: 1; }
 
         .hm-btn {
           display: inline-block;
@@ -328,38 +286,30 @@ function Home() {
           transition-delay: calc(var(--i, 0) * 120ms);
         }
         .hm-ready .hm-reveal.hm-in { opacity: 1; transform: translateY(0); }
-        .hm-ready .hm-orb.hm-reveal { opacity: 0; }
-        .hm-ready .hm-orb.hm-reveal.hm-in { opacity: 1; }
 
         @media (prefers-reduced-motion: reduce) {
-          .hm-first > div > *, .hm-ready .hm-reveal, .hm-wave .w-thin, .hm-wave .w-main {
+          .hm-first > div > *, .hm-ready .hm-reveal, .hm-wave .w-main {
             animation: none; transition: none; opacity: 1; transform: none; stroke-dashoffset: 0;
           }
           .hm-ready .hm-orb.hm-reveal { transform: translate(-50%, -50%); }
         }
 
         @media (max-width: 980px) {
-          .hm-options { grid-template-columns: repeat(2, 1fr); gap: 18px; }
-          .hm-flow { aspect-ratio: 360 / 1080; max-width: 440px; margin-left: auto; margin-right: auto; }
+          .hm-gallery { grid-template-columns: repeat(2, 1fr); }
+          .hm-flow { aspect-ratio: 360 / 850; max-width: 420px; margin-left: auto; margin-right: auto; }
           .hm-wave-h { display: none; }
           .hm-wave-v { display: block; }
-          .hm-orb { width: 74%; padding: 8%; }
-          .hm-orb-num { font-size: 10cqw; }
-          .hm-orb h3 { font-size: 5.4cqw; margin: 2cqw 0 1.4cqw; }
-          .hm-orb p { font-size: 4cqw; }
-          .hm-orb:nth-of-type(1) { --x: 50%; --y: 16.2%; }
-          .hm-orb:nth-of-type(2) { --x: 50%; --y: 50%; }
-          .hm-orb:nth-of-type(3) { --x: 50%; --y: 83.8%; }
+          .hm-orb { left: 50%; width: 62.2%; padding: 6%; }
+          .hm-orb-num { font-size: 8.5cqw; }
+          .hm-orb h3 { font-size: 4.8cqw; margin: 1.6cqw 0 1.2cqw; }
+          .hm-orb p { font-size: 3.7cqw; }
+          .hm-orb:nth-of-type(1) { top: 18.2%; }
+          .hm-orb:nth-of-type(2) { top: 50%; }
+          .hm-orb:nth-of-type(3) { top: 81.8%; }
         }
         @media (max-width: 860px) {
           .hm-visit { grid-template-columns: 1fr; }
           .hm-section { padding: 52px 20px; }
-        }
-        @media (max-width: 480px) {
-          .hm-opt-name { font-size: 11px; padding: 4px 8px; letter-spacing: 0.2px; }
-          .hm-opt-num { width: 36px; height: 36px; font-size: 13px; }
-          .hm-opt-box { padding: 7px; border-radius: 24px; }
-          .hm-opt-box img { border-radius: 17px; }
         }
       `}</style>
 
@@ -432,16 +382,11 @@ function Home() {
           <p className="hm-eyebrow hm-reveal">The gallery</p>
           <h2 className="hm-title hm-reveal" style={{ '--i': 1 }}>Fresh from the studio</h2>
           <p className="hm-lead hm-reveal" style={{ '--i': 2 }}>A few of our favourite sets. Tap one to see the full collection.</p>
-          <div className="hm-options">
+          <div className="hm-gallery">
             {HOME_GALLERY.map((g, i) => (
-              <Link key={g.name} to="/services" className="hm-opt hm-reveal" style={{ '--c': g.color, '--i': i }}>
-                <div className="hm-opt-bar">
-                  <span className="hm-opt-num">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="hm-opt-name">{g.name}</span>
-                </div>
-                <div className="hm-opt-box">
-                  <img src={g.image} alt={g.name} loading="lazy" />
-                </div>
+              <Link key={g.name} to="/services" className="hm-shot hm-reveal" style={{ '--i': i }}>
+                <img src={g.image} alt={g.name} loading="lazy" />
+                <span>{g.name}</span>
               </Link>
             ))}
           </div>
@@ -456,27 +401,33 @@ function Home() {
           <p className="hm-lead hm-reveal" style={{ '--i': 2 }}>Three steps and your slot is held for you.</p>
 
           <div className="hm-flow hm-reveal">
-            <svg className="hm-wave hm-wave-h" viewBox="0 0 1100 420" aria-hidden="true">
+            <svg className="hm-wave hm-wave-h" viewBox="0 0 1100 400" aria-hidden="true">
               <defs>
-                <linearGradient id="hmg-h" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1100" y2="0">
+                <linearGradient id="hmg-h" gradientUnits="userSpaceOnUse" x1="90" y1="0" x2="1010" y2="0">
                   <stop offset="0" stopColor="#f9a8d4" />
                   <stop offset="0.5" stopColor="#db2777" />
                   <stop offset="1" stopColor="#9d174d" />
                 </linearGradient>
               </defs>
-              <path className="w-main" pathLength="1" stroke="url(#hmg-h)" d={WAVE_H} />
-              <path className="w-thin" stroke="url(#hmg-h)" d={WAVE_H} transform="translate(0 26)" />
+              <path className="w-main" pathLength="1" stroke="url(#hmg-h)" d="M 139.1 263.4 A 150 150 0 1 1 425 200" />
+              <path className="w-main" pathLength="1" stroke="url(#hmg-h)" d="M 425 200 A 150 150 0 0 0 725 200" />
+              <path className="w-main" pathLength="1" stroke="url(#hmg-h)" d="M 725 200 A 150 150 0 1 1 1010.9 263.4" />
+              <circle className="w-dot" cx="425" cy="200" r="10" />
+              <circle className="w-dot" cx="725" cy="200" r="10" />
             </svg>
-            <svg className="hm-wave hm-wave-v" viewBox="0 0 360 1080" aria-hidden="true">
+            <svg className="hm-wave hm-wave-v" viewBox="0 0 360 850" aria-hidden="true">
               <defs>
-                <linearGradient id="hmg-v" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1080">
+                <linearGradient id="hmg-v" gradientUnits="userSpaceOnUse" x1="0" y1="20" x2="0" y2="830">
                   <stop offset="0" stopColor="#f9a8d4" />
                   <stop offset="0.5" stopColor="#db2777" />
                   <stop offset="1" stopColor="#9d174d" />
                 </linearGradient>
               </defs>
-              <path className="w-main" pathLength="1" stroke="url(#hmg-v)" d={WAVE_V} />
-              <path className="w-thin" stroke="url(#hmg-v)" d={WAVE_V} transform="translate(26 0)" />
+              <path className="w-main" pathLength="1" stroke="url(#hmg-v)" d="M 122.9 32.6 A 135 135 0 1 1 180 290" />
+              <path className="w-main" pathLength="1" stroke="url(#hmg-v)" d="M 180 290 A 135 135 0 0 0 180 560" />
+              <path className="w-main" pathLength="1" stroke="url(#hmg-v)" d="M 180 560 A 135 135 0 1 1 122.9 817.4" />
+              <circle className="w-dot" cx="180" cy="290" r="10" />
+              <circle className="w-dot" cx="180" cy="560" r="10" />
             </svg>
             {HOME_STEPS.map((st, i) => (
               <div key={st.title} className="hm-orb hm-reveal" style={{ '--c': STEP_COLORS[i], '--i': i + 1 }}>
@@ -525,13 +476,6 @@ function Layout() {
 
   return (
     <div className={`sh-shell ${isHome ? 'sh-hero' : 'sh-light'}`}>
-      {isHome && (
-        <div className="sh-bgfx" aria-hidden="true">
-          <img className="sh-bgfx-blur" src="/french manicure/modernswirls.jpg" alt="" />
-          <img className="sh-bgfx-main" src="/french manicure/modernswirls.jpg" alt="" />
-          <div className="sh-bgfx-dim" />
-        </div>
-      )}
       <style>{`
         *,
         *::before,
@@ -570,56 +514,12 @@ function Layout() {
           color: #ffffff;
           background-color: #2a1a28;
         }
-        .sh-bgfx {
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          overflow: hidden;
-          pointer-events: none;
-        }
-        .sh-bgfx img {
-          position: absolute;
-          display: block;
-        }
-        .sh-bgfx-blur {
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          filter: blur(26px);
-          transform: scale(1.12);
-        }
-        .sh-bgfx-main {
-          top: 0;
-          left: 50%;
-          height: 100%;
-          width: auto;
-          max-width: none;
-          transform: translateX(-50%);
-          -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-          mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-        }
-        .sh-bgfx-dim {
-          position: absolute;
-          inset: 0;
-          background: rgba(11, 15, 26, 0.68);
-        }
-        .sh-hero > :not(.sh-bgfx) {
-          position: relative;
-          z-index: 1;
-        }
-        @media (max-aspect-ratio: 1 / 1) {
-          .sh-bgfx-blur {
-            display: none;
-          }
-          .sh-bgfx-main {
-            left: 0;
-            width: 100%;
-            object-fit: cover;
-            transform: none;
-            -webkit-mask-image: none;
-            mask-image: none;
-          }
+        .sh-hero {
+          color: #ffffff;
+          background:
+            linear-gradient(rgba(11, 15, 26, 0.68), rgba(11, 15, 26, 0.68)),
+            url('/french manicure/modernswirls.jpg') center / cover no-repeat;
+          background-attachment: fixed;
         }
         .sh-main {
           flex: 1;
