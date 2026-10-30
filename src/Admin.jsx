@@ -112,19 +112,19 @@ export default function Admin() {
   }, {});
 
   return (
-    <div className="ad-page">
+    <div className="bkadm-page">
       <style>{`
-        .ad-page {
+        .bkadm-page {
           background: #ffffff;
           color: #000000;
         }
-        .ad-wrap {
+        .bkadm-wrap {
           width: 100%;
           max-width: 860px;
           margin: 0 auto;
           padding: 40px 20px 80px;
         }
-        .ad-head {
+        .bkadm-head {
           display: flex;
           flex-wrap: wrap;
           align-items: center;
@@ -132,43 +132,43 @@ export default function Admin() {
           gap: 12px;
           margin-bottom: 24px;
         }
-        .ad-head h1 {
+        .bkadm-head h1 {
           margin: 0;
           color: #000000;
           font-size: clamp(28px, 5vw, 38px);
           font-weight: 700;
           letter-spacing: -1px;
         }
-        .ad-card {
+        .bkadm-card {
           padding: 32px;
           background: #ffffff;
           border: 1px solid #fbcfe8;
           border-radius: 24px;
           box-shadow: 0 20px 40px -12px rgba(219, 39, 119, 0.12);
         }
-        .ad-login {
+        .bkadm-login {
           max-width: 420px;
           margin: 0 auto;
         }
-        .ad-login h1 {
+        .bkadm-login h1 {
           margin: 0 0 20px;
           color: #000000;
           font-size: 28px;
           font-weight: 700;
           text-align: center;
         }
-        .ad-field {
+        .bkadm-field {
           display: flex;
           flex-direction: column;
           gap: 8px;
           margin-bottom: 18px;
         }
-        .ad-field label {
+        .bkadm-field label {
           color: #000000;
           font-size: 14px;
           font-weight: 600;
         }
-        .ad-field input {
+        .bkadm-field input {
           width: 100%;
           padding: 14px 16px;
           border: 1px solid rgba(0, 0, 0, 0.25);
@@ -178,12 +178,12 @@ export default function Admin() {
           font: inherit;
           font-size: 15px;
         }
-        .ad-field input:focus {
+        .bkadm-field input:focus {
           outline: none;
           border-color: #db2777;
           box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.12);
         }
-        .ad-btn {
+        .bkadm-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -198,27 +198,27 @@ export default function Admin() {
           cursor: pointer;
           transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
-        .ad-btn:hover {
+        .bkadm-btn:hover {
           background: #fdf2f8;
           border-color: #db2777;
           color: #db2777;
         }
-        .ad-btn-pink {
+        .bkadm-btn-pink {
           width: 100%;
           border-color: #db2777;
           background: #db2777;
           color: #ffffff;
         }
-        .ad-btn-pink:hover {
+        .bkadm-btn-pink:hover {
           background: #be185d;
           border-color: #be185d;
           color: #ffffff;
         }
-        .ad-btn:disabled {
+        .bkadm-btn:disabled {
           cursor: not-allowed;
           opacity: 0.6;
         }
-        .ad-error {
+        .bkadm-error {
           margin: 0 0 16px;
           padding: 12px 16px;
           border: 1px solid #db2777;
@@ -227,13 +227,13 @@ export default function Admin() {
           color: #000000;
           font-size: 14px;
         }
-        .ad-tools {
+        .bkadm-tools {
           display: flex;
           flex-wrap: wrap;
           align-items: center;
           gap: 12px;
         }
-        .ad-check {
+        .bkadm-check {
           display: flex;
           align-items: center;
           gap: 8px;
@@ -241,7 +241,7 @@ export default function Admin() {
           font-size: 14px;
           cursor: pointer;
         }
-        .ad-day {
+        .bkadm-day {
           margin: 28px 0 10px;
           color: #db2777;
           font-size: 13px;
@@ -249,7 +249,7 @@ export default function Admin() {
           letter-spacing: 1.5px;
           text-transform: uppercase;
         }
-        .ad-item {
+        .bkadm-item {
           display: grid;
           grid-template-columns: 90px 1fr auto;
           align-items: center;
@@ -259,30 +259,30 @@ export default function Admin() {
           border: 1px solid #fbcfe8;
           border-radius: 16px;
         }
-        .ad-item.cancelled {
+        .bkadm-item.cancelled {
           opacity: 0.5;
         }
-        .ad-time {
+        .bkadm-time {
           color: #000000;
           font-size: 16px;
           font-weight: 700;
         }
-        .ad-info strong {
+        .bkadm-info strong {
           display: block;
           color: #000000;
           font-size: 16px;
           font-weight: 600;
         }
-        .ad-info span,
-        .ad-info a {
+        .bkadm-info span,
+        .bkadm-info a {
           display: block;
           color: #000000;
           font-size: 14px;
         }
-        .ad-info a:hover {
+        .bkadm-info a:hover {
           color: #db2777;
         }
-        .ad-tag {
+        .bkadm-tag {
           display: inline-block;
           margin-top: 4px;
           color: #db2777;
@@ -290,39 +290,39 @@ export default function Admin() {
           font-weight: 600;
           text-transform: uppercase;
         }
-        .ad-empty {
+        .bkadm-empty {
           padding: 24px 0;
           color: #000000;
           text-align: center;
         }
         @media (max-width: 600px) {
-          .ad-card {
+          .bkadm-card {
             padding: 24px 18px;
           }
-          .ad-item {
+          .bkadm-item {
             grid-template-columns: 1fr;
             gap: 10px;
           }
         }
       `}</style>
 
-      <div className="ad-wrap">
+      <div className="bkadm-wrap">
         {!supabaseReady && (
-          <div className="ad-card">
-            <div className="ad-error">Supabase is not connected yet. Add the two keys in your environment settings.</div>
+          <div className="bkadm-card">
+            <div className="bkadm-error">Supabase is not connected yet. Add the two keys in your environment settings.</div>
           </div>
         )}
 
         {supabaseReady && checking && <p style={{ color: '#000000' }}>Loading…</p>}
 
         {supabaseReady && !checking && !session && (
-          <div className="ad-card ad-login">
+          <div className="bkadm-card bkadm-login">
             <h1>Frank's bookings</h1>
             <form onSubmit={signIn}>
-              <div className="ad-field">
-                <label htmlFor="ad-email">Email</label>
+              <div className="bkadm-field">
+                <label htmlFor="bkadm-email">Email</label>
                 <input
-                  id="ad-email"
+                  id="bkadm-email"
                   type="email"
                   required
                   autoComplete="username"
@@ -330,10 +330,10 @@ export default function Admin() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div className="ad-field">
-                <label htmlFor="ad-password">Password</label>
+              <div className="bkadm-field">
+                <label htmlFor="bkadm-password">Password</label>
                 <input
-                  id="ad-password"
+                  id="bkadm-password"
                   type="password"
                   required
                   autoComplete="current-password"
@@ -341,8 +341,8 @@ export default function Admin() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              {authError && <div className="ad-error">{authError}</div>}
-              <button type="submit" className="ad-btn ad-btn-pink" disabled={signingIn}>
+              {authError && <div className="bkadm-error">{authError}</div>}
+              <button type="submit" className="bkadm-btn bkadm-btn-pink" disabled={signingIn}>
                 {signingIn ? 'Signing in…' : 'Sign in'}
               </button>
             </form>
@@ -351,54 +351,54 @@ export default function Admin() {
 
         {supabaseReady && !checking && session && (
           <>
-            <div className="ad-head">
+            <div className="bkadm-head">
               <h1>Bookings</h1>
-              <div className="ad-tools">
-                <label className="ad-check">
+              <div className="bkadm-tools">
+                <label className="bkadm-check">
                   <input type="checkbox" checked={showPast} onChange={(e) => setShowPast(e.target.checked)} />
                   Include past
                 </label>
-                <button type="button" className="ad-btn" onClick={load}>
+                <button type="button" className="bkadm-btn" onClick={load}>
                   Refresh
                 </button>
-                <button type="button" className="ad-btn" onClick={() => supabase.auth.signOut()}>
+                <button type="button" className="bkadm-btn" onClick={() => supabase.auth.signOut()}>
                   Sign out
                 </button>
               </div>
             </div>
 
-            {error && <div className="ad-error">{error}</div>}
+            {error && <div className="bkadm-error">{error}</div>}
             {loading && <p>Loading…</p>}
 
             {!loading && bookings.length === 0 && (
-              <div className="ad-card ad-empty">
+              <div className="bkadm-card bkadm-empty">
                 No bookings to show. If you expect some, make sure this email is in the admins table.
               </div>
             )}
 
             {Object.keys(grouped).map((day) => (
               <div key={day}>
-                <div className="ad-day">{longDate(day)}</div>
+                <div className="bkadm-day">{longDate(day)}</div>
                 {grouped[day].map((b) => (
-                  <div key={b.id} className={`ad-item ${b.status === 'cancelled' ? 'cancelled' : ''}`}>
-                    <div className="ad-time">{prettyTime(b.slot)}</div>
-                    <div className="ad-info">
+                  <div key={b.id} className={`bkadm-item ${b.status === 'cancelled' ? 'cancelled' : ''}`}>
+                    <div className="bkadm-time">{prettyTime(b.slot)}</div>
+                    <div className="bkadm-info">
                       <strong>{b.name}</strong>
                       <span>{b.style}</span>
                       <a href={`tel:${b.phone.replace(/\s/g, '')}`}>{b.phone}</a>
                       {b.notes && (
                         <span style={{ whiteSpace: 'pre-line', overflowWrap: 'anywhere' }}>{withLinks(b.notes)}</span>
                       )}
-                      {b.status !== 'confirmed' && <span className="ad-tag">{b.status}</span>}
+                      {b.status !== 'confirmed' && <span className="bkadm-tag">{b.status}</span>}
                     </div>
                     <div>
                       {b.status === 'confirmed' && (
-                        <button type="button" className="ad-btn" onClick={() => setStatus(b.id, 'cancelled')}>
+                        <button type="button" className="bkadm-btn" onClick={() => setStatus(b.id, 'cancelled')}>
                           Cancel
                         </button>
                       )}
                       {b.status === 'cancelled' && (
-                        <button type="button" className="ad-btn" onClick={() => setStatus(b.id, 'confirmed')}>
+                        <button type="button" className="bkadm-btn" onClick={() => setStatus(b.id, 'confirmed')}>
                           Restore
                         </button>
                       )}
