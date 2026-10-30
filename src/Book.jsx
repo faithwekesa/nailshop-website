@@ -500,8 +500,8 @@ export default function Book() {
           background: #00664f;
         }
         .bk-btn-big {
-          padding: 16px 20px;
-          font-size: 17px;
+          padding: 12px 20px;
+          font-size: 15px;
           font-weight: 700;
         }
         .bk-reserved {
@@ -583,7 +583,7 @@ export default function Book() {
       <div className="bk-wrap">
         <div className="bk-title">
           <h1>Book an appointment</h1>
-          <p>Choose a style, pick a date and time, and you are booked in.</p>
+          <p>Choose a style, pick a date and time and you are booked in.</p>
         </div>
 
         <div className="bk-card">
