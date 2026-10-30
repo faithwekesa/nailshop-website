@@ -47,6 +47,7 @@ export default function Admin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPast, setShowPast] = useState(false);
+  const [showCancelled, setShowCancelled] = useState(false);
 
   useEffect(() => {
     if (!supabaseReady) {
@@ -106,7 +107,10 @@ export default function Admin() {
     load();
   };
 
-  const grouped = bookings.reduce((acc, b) => {
+  const visible = showCancelled ? bookings : bookings.filter((b) => b.status !== 'cancelled');
+  const waiting = bookings.filter((b) => b.status === 'pending').length;
+
+  const grouped = visible.reduce((acc, b) => {
     (acc[b.booking_date] = acc[b.booking_date] || []).push(b);
     return acc;
   }, {});
@@ -297,6 +301,12 @@ export default function Admin() {
         .bkadm-info a:hover {
           color: #db2777;
         }
+        .bkadm-waiting {
+          margin: 0 0 20px;
+          color: #db2777;
+          font-size: 16px;
+          font-weight: 600;
+        }
         .bkadm-tag {
           display: inline-block;
           margin-top: 4px;
@@ -373,6 +383,10 @@ export default function Admin() {
                   <input type="checkbox" checked={showPast} onChange={(e) => setShowPast(e.target.checked)} />
                   Include past
                 </label>
+                <label className="bkadm-check">
+                  <input type="checkbox" checked={showCancelled} onChange={(e) => setShowCancelled(e.target.checked)} />
+                  Show cancelled
+                </label>
                 <button type="button" className="bkadm-btn" onClick={load}>
                   Refresh
                 </button>
@@ -382,12 +396,18 @@ export default function Admin() {
               </div>
             </div>
 
+            {waiting > 0 && (
+              <p className="bkadm-waiting">
+                {waiting} {waiting === 1 ? 'booking is' : 'bookings are'} waiting for your confirmation
+              </p>
+            )}
+
             {error && <div className="bkadm-error">{error}</div>}
             {loading && <p>Loading…</p>}
 
-            {!loading && bookings.length === 0 && (
+            {!loading && visible.length === 0 && (
               <div className="bkadm-card bkadm-empty">
-                No bookings to show. If you expect some, make sure this email is in the admins table.
+                No bookings to show. If you expect some, tick Show cancelled or Include past, or make sure this email is in the admins table.
               </div>
             )}
 
