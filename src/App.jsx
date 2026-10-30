@@ -73,6 +73,13 @@ function Footer() {
   );
 }
 
+const HERO_SLIDES = [
+  '/french manicure/modernswirls.jpg',
+  '/french manicure/frenchmanicure1.jpeg',
+  '/french manicure/stiletto.png',
+  '/french manicure/florallongalmond.jpg',
+];
+
 const HOME_GALLERY = [
   { name: 'Modern Swirls Art', image: '/french manicure/modernswirls.jpg', color: '#f472b6' },
   { name: 'Signature French Tip', image: '/french manicure/frenchmanicure1.jpeg', color: '#db2777' },
@@ -398,7 +405,7 @@ function Home() {
         <div className="hm-inner">
           <p className="hm-eyebrow hm-reveal">Simple and quick</p>
           <h2 className="hm-title hm-reveal" style={{ '--i': 1 }}>How booking works</h2>
-          <p className="hm-lead hm-reveal" style={{ '--i': 2 }}>Three steps and your slot is held for you.</p>
+          <p className="hm-lead hm-reveal" style={{ '--i': 2 }}>Choose a style, pick a date and time and you are booked in.</p>
 
           <div className="hm-flow hm-reveal">
             <svg className="hm-wave hm-wave-h" viewBox="0 0 1100 400" aria-hidden="true">
@@ -476,6 +483,13 @@ function Layout() {
 
   return (
     <div className={`sh-shell ${isHome ? 'sh-hero' : 'sh-light'}`}>
+      {isHome && (
+        <div className="sh-slides" aria-hidden="true">
+          {HERO_SLIDES.map((src, k) => (
+            <div key={src} className="sh-slide" style={{ '--k': k, backgroundImage: `url('${src}')` }} />
+          ))}
+        </div>
+      )}
       <style>{`
         *,
         *::before,
@@ -516,10 +530,50 @@ function Layout() {
         }
         .sh-hero {
           color: #ffffff;
-          background:
-            linear-gradient(rgba(11, 15, 26, 0.68), rgba(11, 15, 26, 0.68)),
-            url('/french manicure/modernswirls.jpg') center / cover no-repeat;
-          background-attachment: fixed;
+          background-color: #2a1a28;
+        }
+        .sh-slides {
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        .sh-slides::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: rgba(11, 15, 26, 0.68);
+        }
+        .sh-slide {
+          position: absolute;
+          inset: 0;
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          opacity: 0;
+          animation: sh-slide 28s linear infinite;
+          animation-delay: calc(var(--k) * 7s - 1.2s);
+          will-change: opacity, transform;
+        }
+        @keyframes sh-slide {
+          0% { opacity: 0; transform: scale(1); }
+          4% { opacity: 1; }
+          25% { opacity: 1; }
+          32% { opacity: 0; transform: scale(1.06); }
+          100% { opacity: 0; transform: scale(1.06); }
+        }
+        .sh-hero > :not(.sh-slides) {
+          position: relative;
+          z-index: 1;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .sh-slide {
+            animation: none;
+          }
+          .sh-slide[style*="--k: 0"] {
+            opacity: 1;
+          }
         }
         .sh-main {
           flex: 1;
