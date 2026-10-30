@@ -109,6 +109,10 @@ export default function Admin() {
 
   const visible = showCancelled ? bookings : bookings.filter((b) => b.status !== 'cancelled');
   const waiting = bookings.filter((b) => b.status === 'pending').length;
+  const todayIso = today();
+  const todaysClients = bookings.filter(
+    (b) => b.booking_date === todayIso && (b.status === 'pending' || b.status === 'confirmed')
+  );
 
   const grouped = visible.reduce((acc, b) => {
     (acc[b.booking_date] = acc[b.booking_date] || []).push(b);
@@ -301,11 +305,111 @@ export default function Admin() {
         .bkadm-info a:hover {
           color: #db2777;
         }
-        .bkadm-waiting {
-          margin: 0 0 20px;
+        .bkadm-today {
+          margin-bottom: 32px;
+          padding: 22px;
+          border: 1px solid #db2777;
+          border-radius: 20px;
+        }
+        .bkadm-today-head {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 8px;
+          margin-bottom: 16px;
+        }
+        .bkadm-today-head h2 {
+          margin: 0;
+          color: #000000;
+          font-size: 22px;
+          font-weight: 700;
+        }
+        .bkadm-today-head span {
           color: #db2777;
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 600;
+        }
+        .bkadm-stats {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          margin-bottom: 16px;
+        }
+        .bkadm-stat {
+          padding: 14px;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          border-radius: 14px;
+          text-align: center;
+        }
+        .bkadm-stat strong {
+          display: block;
+          color: #000000;
+          font-size: 32px;
+          font-weight: 700;
+          line-height: 1.1;
+        }
+        .bkadm-stat span {
+          color: #000000;
+          font-size: 13px;
+        }
+        .bkadm-stat.alert {
+          border-color: #db2777;
+          background: #fdf2f8;
+        }
+        .bkadm-stat.alert strong {
+          color: #db2777;
+        }
+        .bkadm-today-empty {
+          margin: 0;
+          color: #000000;
+          font-size: 15px;
+          text-align: center;
+        }
+        .bkadm-today-row {
+          display: grid;
+          grid-template-columns: 84px 1fr auto auto;
+          align-items: center;
+          gap: 12px;
+          padding: 12px 0;
+          border-top: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        .bkadm-today-time {
+          color: #000000;
+          font-size: 15px;
+          font-weight: 700;
+        }
+        .bkadm-today-who strong {
+          display: block;
+          color: #000000;
+          font-size: 15px;
+          font-weight: 600;
+        }
+        .bkadm-today-who span {
+          color: #000000;
+          font-size: 13px;
+        }
+        .bkadm-today-row a {
+          color: #000000;
+          font-size: 14px;
+        }
+        .bkadm-today-row a:hover {
+          color: #db2777;
+        }
+        .bkadm-section {
+          margin: 0 0 12px;
+          color: #000000;
+          font-size: 18px;
+          font-weight: 700;
+        }
+        @media (max-width: 600px) {
+          .bkadm-today-row {
+            grid-template-columns: 70px 1fr;
+          }
+          .bkadm-today-row a,
+          .bkadm-today-row .bkadm-tag {
+            grid-column: 2;
+          }
         }
         .bkadm-tag {
           display: inline-block;
@@ -396,11 +500,37 @@ export default function Admin() {
               </div>
             </div>
 
-            {waiting > 0 && (
-              <p className="bkadm-waiting">
-                {waiting} {waiting === 1 ? 'booking is' : 'bookings are'} waiting for your confirmation
-              </p>
-            )}
+            <div className="bkadm-today">
+              <div className="bkadm-today-head">
+                <h2>Today</h2>
+                <span>{longDate(todayIso)}</span>
+              </div>
+              <div className="bkadm-stats">
+                <div className="bkadm-stat">
+                  <strong>{todaysClients.length}</strong>
+                  <span>{todaysClients.length === 1 ? 'client today' : 'clients today'}</span>
+                </div>
+                <div className={`bkadm-stat ${waiting > 0 ? 'alert' : ''}`}>
+                  <strong>{waiting}</strong>
+                  <span>waiting for your answer</span>
+                </div>
+              </div>
+              {todaysClients.length === 0 ? (
+                <p className="bkadm-today-empty">No clients booked for today.</p>
+              ) : (
+                todaysClients.map((b) => (
+                  <div key={b.id} className="bkadm-today-row">
+                    <span className="bkadm-today-time">{prettyTime(b.slot)}</span>
+                    <span className="bkadm-today-who">
+                      <strong>{b.name}</strong>
+                      <span>{b.style}</span>
+                    </span>
+                    <a href={`tel:${b.phone.replace(/\s/g, '')}`}>{b.phone}</a>
+                    {b.status === 'pending' && <span className="bkadm-tag">pending</span>}
+                  </div>
+                ))
+              )}
+            </div>
 
             {error && <div className="bkadm-error">{error}</div>}
             {loading && <p>Loading…</p>}
@@ -410,6 +540,8 @@ export default function Admin() {
                 No bookings to show. If you expect some, tick Show cancelled or Include past, or make sure this email is in the admins table.
               </div>
             )}
+
+            {visible.length > 0 && <h2 className="bkadm-section">{showPast ? 'All bookings' : 'Upcoming'}</h2>}
 
             {Object.keys(grouped).map((day) => (
               <div key={day}>

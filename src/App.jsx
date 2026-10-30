@@ -13,7 +13,7 @@ import Services from './Services';
 import Contact from './Contact';
 import Book from './Book';
 import Admin from './Admin';
-import { BRAND_NAME, LOCATION_NAME } from './brand';
+import { BRAND_NAME, LOCATION_NAME, MAP_EMBED_URL, MAP_OPEN_URL, PHONE_DISPLAY, PHONE_LINK } from './brand';
 
 const [LOGO_FIRST, ...LOGO_REST] = BRAND_NAME.toUpperCase().split(' ');
 
@@ -73,70 +73,340 @@ function Footer() {
   );
 }
 
+const HOME_GALLERY = [
+  { name: 'Modern Swirls Art', image: '/french manicure/modernswirls.jpg' },
+  { name: 'Signature French Tip', image: '/french manicure/frenchmanicure1.jpeg' },
+  { name: 'Luxury Sculpted Stilettos', image: '/french manicure/stiletto.png' },
+  { name: 'Floral Almond Inlays', image: '/french manicure/florallongalmond.jpg' },
+];
+
+const HOME_STEPS = [
+  { title: 'Pick your style', text: 'Browse the gallery or describe your own idea and share an inspiration link.' },
+  { title: 'Choose a day and time', text: 'See open slots on the calendar and reserve the one that suits you.' },
+  { title: 'Confirm on WhatsApp', text: 'Send your booking to the salon on WhatsApp and wait for the confirmation.' },
+];
+
 function Home() {
   const navigate = useNavigate();
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textAlign: 'center',
-      padding: '20px',
-      maxWidth: '850px',
-      margin: 'auto',
-      boxSizing: 'border-box'
-    }}>
-      <div style={{
-        backgroundColor: 'transparent',
-        border: '1px solid rgba(255, 255, 255, 0.3)',
-        color: '#f472b6',
-        padding: '7px 20px',
-        borderRadius: '9999px',
-        fontSize: '13px',
-        fontWeight: '700',
-        textTransform: 'uppercase',
-        letterSpacing: '2px',
-        marginBottom: '24px'
-      }}>
-        {LOCATION_NAME}
-      </div>
+    <div className="hm-page">
+      <style>{`
+        .hm-page {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+        .hm-first {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: calc(100svh - 148px);
+        }
+        .hm-section {
+          background: #ffffff;
+          color: #000000;
+          padding: 72px 24px;
+        }
+        .hm-section + .hm-section {
+          border-top: 1px solid #fbcfe8;
+        }
+        .hm-inner {
+          max-width: 1100px;
+          margin: 0 auto;
+        }
+        .hm-eyebrow {
+          margin: 0 0 8px;
+          color: #db2777;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+        }
+        .hm-title {
+          margin: 0 0 12px;
+          color: #000000;
+          font-size: clamp(26px, 5vw, 38px);
+          font-weight: 800;
+          line-height: 1.15;
+        }
+        .hm-lead {
+          margin: 0 0 32px;
+          max-width: 560px;
+          color: #000000;
+          font-size: 16px;
+          line-height: 1.6;
+        }
+        .hm-gallery {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
+          margin-bottom: 28px;
+        }
+        .hm-shot {
+          position: relative;
+          display: block;
+          aspect-ratio: 3 / 4;
+          overflow: hidden;
+          border-radius: 18px;
+          background: #fdf2f8;
+        }
+        .hm-shot img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.4s ease;
+        }
+        .hm-shot:hover img {
+          transform: scale(1.05);
+        }
+        .hm-shot span {
+          position: absolute;
+          left: 10px;
+          right: 10px;
+          bottom: 10px;
+          padding: 7px 12px;
+          border-radius: 9999px;
+          background: #ffffff;
+          color: #000000;
+          font-size: 13px;
+          font-weight: 700;
+          text-align: center;
+        }
+        .hm-steps {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+          margin-bottom: 32px;
+        }
+        .hm-step {
+          padding: 24px;
+          border: 1px solid #fbcfe8;
+          border-radius: 20px;
+        }
+        .hm-step-num {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          margin-bottom: 14px;
+          border-radius: 50%;
+          background: #db2777;
+          color: #ffffff;
+          font-size: 18px;
+          font-weight: 700;
+        }
+        .hm-step h3 {
+          margin: 0 0 8px;
+          color: #000000;
+          font-size: 18px;
+          font-weight: 700;
+        }
+        .hm-step p {
+          margin: 0;
+          color: #000000;
+          font-size: 15px;
+          line-height: 1.55;
+        }
+        .hm-visit {
+          display: grid;
+          grid-template-columns: 1fr 1.3fr;
+          gap: 32px;
+          align-items: stretch;
+        }
+        .hm-hours {
+          margin: 0 0 24px;
+          padding: 0;
+          list-style: none;
+          color: #000000;
+          font-size: 16px;
+        }
+        .hm-hours li {
+          display: flex;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 10px 0;
+          border-bottom: 1px solid #fbcfe8;
+        }
+        .hm-hours li span:last-child {
+          font-weight: 700;
+        }
+        .hm-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .hm-btn {
+          display: inline-block;
+          padding: 13px 28px;
+          border: 1px solid #db2777;
+          border-radius: 9999px;
+          background: #ffffff;
+          color: #000000;
+          font-size: 15px;
+          font-weight: 700;
+          text-decoration: none;
+          cursor: pointer;
+          font-family: inherit;
+        }
+        .hm-btn:hover {
+          background: #fdf2f8;
+        }
+        .hm-btn-fill {
+          background: #db2777;
+          color: #ffffff;
+        }
+        .hm-btn-fill:hover {
+          background: #be185d;
+        }
+        .hm-map {
+          min-height: 320px;
+          overflow: hidden;
+          border: 1px solid #fbcfe8;
+          border-radius: 20px;
+        }
+        .hm-map iframe {
+          display: block;
+          width: 100%;
+          height: 100%;
+          min-height: 320px;
+          border: 0;
+        }
+        @media (max-width: 860px) {
+          .hm-gallery {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .hm-steps,
+          .hm-visit {
+            grid-template-columns: 1fr;
+          }
+          .hm-section {
+            padding: 52px 20px;
+          }
+        }
+      `}</style>
 
-      <h1 style={{
-        fontSize: 'clamp(36px, 8vw, 82px)',
-        fontWeight: '900',
-        lineHeight: '1.1',
-        margin: '0 0 20px 0',
-        letterSpacing: '-1px',
-        color: '#ffffff',
-        filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.4))'
-      }}>
-        Bold nails.<br />
-        <span className="luxury-gradient-text">Beautifully done.</span>
-      </h1>
+      <section className="hm-first">
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          padding: '20px',
+          maxWidth: '850px',
+          margin: 'auto',
+          boxSizing: 'border-box'
+        }}>
+          <div style={{
+            backgroundColor: 'transparent',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            color: '#f472b6',
+            padding: '7px 20px',
+            borderRadius: '9999px',
+            fontSize: '13px',
+            fontWeight: '700',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+            marginBottom: '24px'
+          }}>
+            {LOCATION_NAME}
+          </div>
 
-      <p style={{
-        color: '#ffffff',
-        fontSize: 'clamp(15px, 4vw, 21px)',
-        lineHeight: '1.5',
-        maxWidth: '680px',
-        margin: '0 0 36px 0',
-        fontWeight: '400',
-        letterSpacing: '0.2px',
-        filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.5))'
-      }}>
-        Stilettos, French tips, florals and custom nail art, finished by hand to match your style.
-      </p>
+          <h1 style={{
+            fontSize: 'clamp(36px, 8vw, 82px)',
+            fontWeight: '900',
+            lineHeight: '1.1',
+            margin: '0 0 20px 0',
+            letterSpacing: '-1px',
+            color: '#ffffff',
+            filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.4))'
+          }}>
+            Bold nails.<br />
+            <span className="luxury-gradient-text">Beautifully done.</span>
+          </h1>
 
-      <div className="button-group" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <button className="btn-primary" onClick={() => navigate('/services')}>
-          Explore Services
-        </button>
-        <button className="btn-contact" onClick={() => navigate('/book')}>
-          Book Appointment
-        </button>
-      </div>
+          <p style={{
+            color: '#ffffff',
+            fontSize: 'clamp(15px, 4vw, 21px)',
+            lineHeight: '1.5',
+            maxWidth: '680px',
+            margin: '0 0 36px 0',
+            fontWeight: '400',
+            letterSpacing: '0.2px',
+            filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.5))'
+          }}>
+            Stilettos, French tips, florals and custom nail art, finished by hand to match your style.
+          </p>
+
+          <div className="button-group" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <button className="btn-primary" onClick={() => navigate('/services')}>
+              Explore Services
+            </button>
+            <button className="btn-contact" onClick={() => navigate('/book')}>
+              Book Appointment
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section className="hm-section">
+        <div className="hm-inner">
+          <p className="hm-eyebrow">The gallery</p>
+          <h2 className="hm-title">Fresh from the studio</h2>
+          <p className="hm-lead">A few of our favourite sets. Tap one to see the full collection.</p>
+          <div className="hm-gallery">
+            {HOME_GALLERY.map((g) => (
+              <Link key={g.name} to="/services" className="hm-shot">
+                <img src={g.image} alt={g.name} loading="lazy" />
+                <span>{g.name}</span>
+              </Link>
+            ))}
+          </div>
+          <Link to="/services" className="hm-btn">See all styles</Link>
+        </div>
+      </section>
+
+      <section className="hm-section">
+        <div className="hm-inner">
+          <p className="hm-eyebrow">Simple and quick</p>
+          <h2 className="hm-title">How booking works</h2>
+          <p className="hm-lead">Three steps and your slot is held for you.</p>
+          <div className="hm-steps">
+            {HOME_STEPS.map((st, i) => (
+              <div key={st.title} className="hm-step">
+                <span className="hm-step-num">{i + 1}</span>
+                <h3>{st.title}</h3>
+                <p>{st.text}</p>
+              </div>
+            ))}
+          </div>
+          <button className="hm-btn hm-btn-fill" onClick={() => navigate('/book')}>Book now</button>
+        </div>
+      </section>
+
+      <section className="hm-section">
+        <div className="hm-inner hm-visit">
+          <div>
+            <p className="hm-eyebrow">Find us</p>
+            <h2 className="hm-title">Visit the studio</h2>
+            <p className="hm-lead">{LOCATION_NAME}</p>
+            <ul className="hm-hours">
+              <li><span>Monday to Saturday</span><span>9:00 AM to 5:00 PM</span></li>
+              <li><span>Sunday</span><span>Closed</span></li>
+            </ul>
+            <div className="hm-actions">
+              <a className="hm-btn hm-btn-fill" href={PHONE_LINK}>Call {PHONE_DISPLAY}</a>
+              <a className="hm-btn" href={MAP_OPEN_URL} target="_blank" rel="noreferrer">Get directions</a>
+            </div>
+          </div>
+          <div className="hm-map">
+            <iframe title="Map" src={MAP_EMBED_URL} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
@@ -189,6 +459,7 @@ function Layout() {
           background:
             linear-gradient(rgba(11, 15, 26, 0.68), rgba(11, 15, 26, 0.68)),
             url('/french manicure/modernswirls.jpg') center / cover no-repeat;
+          background-attachment: fixed;
         }
         .sh-main {
           flex: 1;
