@@ -600,7 +600,7 @@ export default function Book() {
             <div className="bk-done">
               <div className="bk-tick">✓</div>
               <h2>Almost done, {done.name.split(' ')[0]}</h2>
-              <p>Your time is saved. One last step: send your details to Frank on WhatsApp so he sees your booking right away.</p>
+              <p>Your time is held for you. One last step: send your details to Frank on WhatsApp. He will confirm your booking there.</p>
 
               <div className="bk-summary">
                 <p><strong>Style:</strong> {done.style}</p>
@@ -619,7 +619,7 @@ export default function Book() {
                 >
                   Send to Frank on WhatsApp
                 </a>
-                <p className="bk-reserved">Your slot at the shop in Kahawa Wendani is reserved.</p>
+                <p className="bk-reserved">Your slot at the shop in Kahawa Wendani is held until Frank confirms.</p>
                 <button type="button" className="bk-btn bk-btn-outline" onClick={reset}>
                   Book another time
                 </button>

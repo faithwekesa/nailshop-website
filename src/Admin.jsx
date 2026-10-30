@@ -214,6 +214,21 @@ export default function Admin() {
           border-color: #be185d;
           color: #ffffff;
         }
+        .bkadm-btn-fill {
+          border-color: #db2777;
+          background: #db2777;
+          color: #ffffff;
+        }
+        .bkadm-btn-fill:hover {
+          background: #be185d;
+          border-color: #be185d;
+          color: #ffffff;
+        }
+        .bkadm-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
         .bkadm-btn:disabled {
           cursor: not-allowed;
           opacity: 0.6;
@@ -389,13 +404,28 @@ export default function Admin() {
                       {b.notes && (
                         <span style={{ whiteSpace: 'pre-line', overflowWrap: 'anywhere' }}>{withLinks(b.notes)}</span>
                       )}
-                      {b.status !== 'confirmed' && <span className="bkadm-tag">{b.status}</span>}
+                      <span className="bkadm-tag">{b.status}</span>
                     </div>
-                    <div>
+                    <div className="bkadm-actions">
+                      {b.status === 'pending' && (
+                        <>
+                          <button type="button" className="bkadm-btn bkadm-btn-fill" onClick={() => setStatus(b.id, 'confirmed')}>
+                            Confirm
+                          </button>
+                          <button type="button" className="bkadm-btn" onClick={() => setStatus(b.id, 'cancelled')}>
+                            Decline
+                          </button>
+                        </>
+                      )}
                       {b.status === 'confirmed' && (
-                        <button type="button" className="bkadm-btn" onClick={() => setStatus(b.id, 'cancelled')}>
-                          Cancel
-                        </button>
+                        <>
+                          <button type="button" className="bkadm-btn bkadm-btn-fill" onClick={() => setStatus(b.id, 'completed')}>
+                            Done
+                          </button>
+                          <button type="button" className="bkadm-btn" onClick={() => setStatus(b.id, 'cancelled')}>
+                            Cancel
+                          </button>
+                        </>
                       )}
                       {b.status === 'cancelled' && (
                         <button type="button" className="bkadm-btn" onClick={() => setStatus(b.id, 'confirmed')}>
