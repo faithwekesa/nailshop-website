@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-
-const WHATSAPP_NUMBER = '254712077837';
-const PHONE_DISPLAY = '0712 077 837';
-const PHONE_LINK = 'tel:+254712077837';
-const LOCATION_NAME = 'Kahawa Wendani, Nairobi';
-const MAP_EMBED_URL =
-  'https://maps.google.com/maps?q=Kahawa%20Wendani%2C%20Nairobi%2C%20Kenya&z=15&output=embed';
-const MAP_OPEN_URL = 'https://www.google.com/maps/search/?api=1&query=Kahawa+Wendani+Nairobi+Kenya';
+import {
+  BRAND_NAME,
+  WHATSAPP_NUMBER,
+  PHONE_DISPLAY,
+  PHONE_LINK,
+  LOCATION_NAME,
+  MAP_EMBED_URL,
+  MAP_OPEN_URL,
+} from './brand';
 
 const whatsappLink = (message) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -60,7 +61,7 @@ export default function Contact() {
     e.preventDefault();
 
     const text =
-      `Hello Frank's Nails, my name is ${form.firstName.trim()} ${form.lastName.trim()}.\n\n` +
+      `Hello ${BRAND_NAME}, my name is ${form.firstName.trim()} ${form.lastName.trim()}.\n\n` +
       `Phone: ${form.phone.trim()}\n` +
       `Style: ${form.style}\n` +
       `Message: ${form.message.trim() || 'None'}`;
@@ -301,7 +302,7 @@ export default function Contact() {
 
       <div className="ct-wrap">
         <div className="ct-title">
-          <h1>Contact Frank</h1>
+          <h1>Contact us</h1>
           <p>Send your details on WhatsApp, call, or visit the shop.</p>
         </div>
 
@@ -391,7 +392,7 @@ export default function Contact() {
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
                   </Icon>
                 </div>
-                <h2>Call Frank</h2>
+                <h2>Call us</h2>
               </div>
               <a className="ct-big" href={PHONE_LINK}>
                 {PHONE_DISPLAY}
@@ -414,7 +415,7 @@ export default function Contact() {
               <p className="ct-place">{LOCATION_NAME}</p>
               <div className="ct-map">
                 <iframe
-                  title="Frank's Nails location in Kahawa Wendani, Nairobi"
+                  title={`${BRAND_NAME} location in ${LOCATION_NAME}`}
                   src={MAP_EMBED_URL}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

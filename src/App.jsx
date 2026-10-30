@@ -13,7 +13,9 @@ import Services from './Services';
 import Contact from './Contact';
 import Book from './Book';
 import Admin from './Admin';
-const LOCATION_NAME = 'Kahawa Wendani, Nairobi';
+import { BRAND_NAME, LOCATION_NAME } from './brand';
+
+const [LOGO_FIRST, ...LOGO_REST] = BRAND_NAME.toUpperCase().split(' ');
 
 const navClass = ({ isActive }) => `sh-link ${isActive ? 'active' : ''}`;
 
@@ -29,7 +31,7 @@ function Header() {
     <header className="sh-header">
       <div className="sh-header-inner">
         <Link to="/" className="sh-logo">
-          FRANK'S <span>NAILS</span>
+          {LOGO_FIRST} <span>{LOGO_REST.join(' ')}</span>
         </Link>
 
         <button
@@ -66,7 +68,7 @@ function Header() {
 function Footer() {
   return (
     <footer className="sh-footer">
-      © {new Date().getFullYear()} Frank's Nails. All rights reserved.
+      © {new Date().getFullYear()} {BRAND_NAME}. All rights reserved.
     </footer>
   );
 }

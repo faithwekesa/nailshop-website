@@ -342,7 +342,7 @@ export default function Admin() {
 
         {supabaseReady && !checking && !session && (
           <div className="bkadm-card bkadm-login">
-            <h1>Frank's bookings</h1>
+            <h1>Owner login</h1>
             <form onSubmit={signIn}>
               <div className="bkadm-field">
                 <label htmlFor="bkadm-email">Email</label>

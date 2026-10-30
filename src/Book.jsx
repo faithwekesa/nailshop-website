@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { supabase, supabaseReady } from './supabaseClient';
+import { BRAND_NAME, LOCATION_NAME, WHATSAPP_NUMBER } from './brand';
 
-const WHATSAPP_NUMBER = '254712077837';
 const TZ = 'Africa/Nairobi';
 const MAX_DAYS = 60;
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -133,7 +133,7 @@ export default function Book() {
       ]);
       if (!active) return;
       if (slotsRes.error || closedRes.error) {
-        setLoadError('We could not load available times. Please refresh, or contact Frank directly.');
+        setLoadError('We could not load available times. Please refresh, or contact the salon directly.');
       } else {
         setAllSlots(slotsRes.data.map((r) => r.slot.slice(0, 5)));
         setClosedDows(closedRes.data.map((r) => r.dow));
@@ -228,7 +228,7 @@ export default function Book() {
   };
 
   const whatsappText = done
-    ? `Hello Frank's Nails, I have just booked online.\n\nName: ${done.name}\nPhone: ${done.phone}\nStyle: ${done.style}\nDate: ${longDate(done.date)}\nTime: ${prettyTime(done.slot)}${done.notes ? `\nNotes: ${done.notes}` : ''}`
+    ? `Hello ${BRAND_NAME}, I have just booked online.\n\nName: ${done.name}\nPhone: ${done.phone}\nStyle: ${done.style}\nDate: ${longDate(done.date)}\nTime: ${prettyTime(done.slot)}${done.notes ? `\nNotes: ${done.notes}` : ''}`
     : '';
 
   return (
@@ -589,7 +589,7 @@ export default function Book() {
         <div className="bk-card">
           {!supabaseReady && (
             <div className="bk-error">
-              Online booking is not set up yet. Please contact Frank on WhatsApp or by phone.
+              Online booking is not set up yet. Please contact the salon on WhatsApp or by phone.
             </div>
           )}
 
@@ -600,7 +600,7 @@ export default function Book() {
             <div className="bk-done">
               <div className="bk-tick">✓</div>
               <h2>Almost done, {done.name.split(' ')[0]}</h2>
-              <p>Your time is held for you. One last step: send your details to Frank on WhatsApp. He will confirm your booking there.</p>
+              <p>Your time is held for you. One last step: send your details to the salon on WhatsApp. They will confirm your booking there.</p>
 
               <div className="bk-summary">
                 <p><strong>Style:</strong> {done.style}</p>
@@ -617,9 +617,9 @@ export default function Book() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Send to Frank on WhatsApp
+                  Send to the salon on WhatsApp
                 </a>
-                <p className="bk-reserved">Your slot at the shop in Kahawa Wendani is held until Frank confirms.</p>
+                <p className="bk-reserved">Your slot at the studio in {LOCATION_NAME.split(',')[0]} is held until the salon confirms.</p>
                 <button type="button" className="bk-btn bk-btn-outline" onClick={reset}>
                   Book another time
                 </button>
@@ -782,7 +782,7 @@ export default function Book() {
                     <textarea
                       id="bk-notes"
                       maxLength={300}
-                      placeholder="Shape, length or anything else Frank should know"
+                      placeholder="Shape, length or anything else the salon should know"
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                     />
