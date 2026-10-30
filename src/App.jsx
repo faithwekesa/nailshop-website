@@ -88,6 +88,17 @@ const HOME_STEPS = [
 
 function Home() {
   const navigate = useNavigate();
+  const [headerH, setHeaderH] = useState(84);
+
+  useEffect(() => {
+    const measure = () => {
+      const el = document.querySelector('.sh-header');
+      if (el) setHeaderH(el.offsetHeight);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   return (
     <div className="hm-page">
@@ -101,7 +112,8 @@ function Home() {
           display: flex;
           align-items: center;
           justify-content: center;
-          min-height: calc(100svh - 148px);
+          min-height: calc(100vh - var(--hm-h));
+          min-height: calc(100svh - var(--hm-h));
         }
         .hm-section {
           background: #ffffff;
@@ -288,7 +300,7 @@ function Home() {
         }
       `}</style>
 
-      <section className="hm-first">
+      <section className="hm-first" style={{ '--hm-h': `${headerH}px` }}>
         <div style={{
           display: 'flex',
           flexDirection: 'column',
