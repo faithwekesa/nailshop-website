@@ -53,10 +53,11 @@ export default function Admin() {
       setChecking(false);
       return;
     }
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setChecking(false);
-    });
+    supabase.auth
+      .getSession()
+      .then(({ data }) => setSession(data.session))
+      .catch(() => setSession(null))
+      .finally(() => setChecking(false));
     const { data } = supabase.auth.onAuthStateChange((_event, s) => setSession(s));
     return () => data.subscription.unsubscribe();
   }, []);
@@ -308,7 +309,7 @@ export default function Admin() {
           </div>
         )}
 
-        {supabaseReady && checking && <p>Loading…</p>}
+        {supabaseReady && checking && <p style={{ color: '#000000' }}>Loading…</p>}
 
         {supabaseReady && !checking && !session && (
           <div className="ad-card ad-login">
