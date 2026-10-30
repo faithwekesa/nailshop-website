@@ -91,6 +91,26 @@ function Home() {
   const [headerH, setHeaderH] = useState(84);
 
   useEffect(() => {
+    const page = document.querySelector('.hm-page');
+    const items = document.querySelectorAll('.hm-reveal');
+    if (!page || !('IntersectionObserver' in window)) return undefined;
+    page.classList.add('hm-ready');
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('hm-in');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    items.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
     const measure = () => {
       const el = document.querySelector('.sh-header');
       if (el) setHeaderH(el.offsetHeight);
@@ -286,6 +306,62 @@ function Home() {
           min-height: 320px;
           border: 0;
         }
+        .hm-first > div > * {
+          animation: hm-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        }
+        .hm-first > div > *:nth-child(2) { animation-delay: 0.12s; }
+        .hm-first > div > *:nth-child(3) { animation-delay: 0.24s; }
+        .hm-first > div > *:nth-child(4) { animation-delay: 0.36s; }
+        @keyframes hm-rise {
+          from { opacity: 0; transform: translateY(26px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .hm-ready .hm-reveal {
+          opacity: 0;
+          transform: translateY(32px);
+          transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+          transition-delay: calc(var(--i, 0) * 110ms);
+        }
+        .hm-ready .hm-reveal.hm-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .hm-shot {
+          box-shadow: 0 0 0 rgba(219, 39, 119, 0);
+        }
+        .hm-shot:hover {
+          box-shadow: 0 16px 32px rgba(219, 39, 119, 0.22);
+        }
+        .hm-step {
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .hm-step:hover {
+          transform: translateY(-6px);
+          border-color: #db2777;
+          box-shadow: 0 14px 28px rgba(219, 39, 119, 0.14);
+        }
+        .hm-btn {
+          transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hm-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 18px rgba(219, 39, 119, 0.25);
+        }
+        .hm-step-num {
+          transition: transform 0.3s ease;
+        }
+        .hm-step:hover .hm-step-num {
+          transform: scale(1.12) rotate(-6deg);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hm-first > div > *,
+          .hm-ready .hm-reveal {
+            animation: none;
+            transition: none;
+            opacity: 1;
+            transform: none;
+          }
+        }
         @media (max-width: 860px) {
           .hm-gallery {
             grid-template-columns: repeat(2, 1fr);
@@ -366,42 +442,42 @@ function Home() {
 
       <section className="hm-section">
         <div className="hm-inner">
-          <p className="hm-eyebrow">The gallery</p>
-          <h2 className="hm-title">Fresh from the studio</h2>
-          <p className="hm-lead">A few of our favourite sets. Tap one to see the full collection.</p>
+          <p className="hm-eyebrow hm-reveal">The gallery</p>
+          <h2 className="hm-title hm-reveal" style={{ '--i': 1 }}>Fresh from the studio</h2>
+          <p className="hm-lead hm-reveal" style={{ '--i': 2 }}>A few of our favourite sets. Tap one to see the full collection.</p>
           <div className="hm-gallery">
-            {HOME_GALLERY.map((g) => (
-              <Link key={g.name} to="/services" className="hm-shot">
+            {HOME_GALLERY.map((g, i) => (
+              <Link key={g.name} to="/services" className="hm-shot hm-reveal" style={{ '--i': i }}>
                 <img src={g.image} alt={g.name} loading="lazy" />
                 <span>{g.name}</span>
               </Link>
             ))}
           </div>
-          <Link to="/services" className="hm-btn">See all styles</Link>
+          <Link to="/services" className="hm-btn hm-reveal">See all styles</Link>
         </div>
       </section>
 
       <section className="hm-section">
         <div className="hm-inner">
-          <p className="hm-eyebrow">Simple and quick</p>
-          <h2 className="hm-title">How booking works</h2>
-          <p className="hm-lead">Three steps and your slot is held for you.</p>
+          <p className="hm-eyebrow hm-reveal">Simple and quick</p>
+          <h2 className="hm-title hm-reveal" style={{ '--i': 1 }}>How booking works</h2>
+          <p className="hm-lead hm-reveal" style={{ '--i': 2 }}>Three steps and your slot is held for you.</p>
           <div className="hm-steps">
             {HOME_STEPS.map((st, i) => (
-              <div key={st.title} className="hm-step">
+              <div key={st.title} className="hm-step hm-reveal" style={{ '--i': i }}>
                 <span className="hm-step-num">{i + 1}</span>
                 <h3>{st.title}</h3>
                 <p>{st.text}</p>
               </div>
             ))}
           </div>
-          <button className="hm-btn hm-btn-fill" onClick={() => navigate('/book')}>Book now</button>
+          <button className="hm-btn hm-btn-fill hm-reveal" onClick={() => navigate('/book')}>Book now</button>
         </div>
       </section>
 
       <section className="hm-section">
         <div className="hm-inner hm-visit">
-          <div>
+          <div className="hm-reveal">
             <p className="hm-eyebrow">Find us</p>
             <h2 className="hm-title">Visit the studio</h2>
             <p className="hm-lead">{LOCATION_NAME}</p>
@@ -414,7 +490,7 @@ function Home() {
               <a className="hm-btn" href={MAP_OPEN_URL} target="_blank" rel="noreferrer">Get directions</a>
             </div>
           </div>
-          <div className="hm-map">
+          <div className="hm-map hm-reveal" style={{ '--i': 2 }}>
             <iframe title="Map" src={MAP_EMBED_URL} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           </div>
         </div>
@@ -680,14 +756,20 @@ function Layout() {
             top: 100%;
             left: 0;
             right: 0;
-            display: none;
+            display: flex;
             flex-direction: column;
             align-items: stretch;
             gap: 0;
             padding: 8px 16px 20px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-12px);
+            transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
           }
           .sh-nav.open {
-            display: flex;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
           }
           .sh-light .sh-nav {
             background: #ffffff;
@@ -695,7 +777,10 @@ function Layout() {
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
           }
           .sh-hero .sh-nav {
-            background: rgba(11, 15, 26, 0.96);
+            background: rgba(255, 255, 255, 0.14);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
           }
           .sh-link {
             padding: 14px 4px;
