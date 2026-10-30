@@ -58,8 +58,12 @@ export default function Admin() {
       .then(({ data }) => setSession(data.session))
       .catch(() => setSession(null))
       .finally(() => setChecking(false));
+    const timer = setTimeout(() => setChecking(false), 3000);
     const { data } = supabase.auth.onAuthStateChange((_event, s) => setSession(s));
-    return () => data.subscription.unsubscribe();
+    return () => {
+      clearTimeout(timer);
+      data.subscription.unsubscribe();
+    };
   }, []);
 
   const load = useCallback(async () => {
