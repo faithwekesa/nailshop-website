@@ -499,6 +499,17 @@ export default function Book() {
         .bk-btn-green:hover {
           background: #00664f;
         }
+        .bk-btn-big {
+          padding: 16px 20px;
+          font-size: 17px;
+          font-weight: 700;
+        }
+        .bk-reserved {
+          margin: 0;
+          color: #000000;
+          font-size: 14px;
+          text-align: center;
+        }
         .bk-btn-outline {
           background: transparent;
           border-color: #000000;
@@ -588,8 +599,8 @@ export default function Book() {
           {done ? (
             <div className="bk-done">
               <div className="bk-tick">✓</div>
-              <h2>You are booked, {done.name.split(' ')[0]}</h2>
-              <p>We will see you at the shop in Kahawa Wendani.</p>
+              <h2>Almost done, {done.name.split(' ')[0]}</h2>
+              <p>Your time is saved. One last step: send your details to Frank on WhatsApp so he sees your booking right away.</p>
 
               <div className="bk-summary">
                 <p><strong>Style:</strong> {done.style}</p>
@@ -601,13 +612,14 @@ export default function Book() {
 
               <div className="bk-actions">
                 <a
-                  className="bk-btn bk-btn-green"
+                  className="bk-btn bk-btn-green bk-btn-big"
                   href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappText)}`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Send these details to Frank on WhatsApp
+                  Send to Frank on WhatsApp
                 </a>
+                <p className="bk-reserved">Your slot at the shop in Kahawa Wendani is reserved.</p>
                 <button type="button" className="bk-btn bk-btn-outline" onClick={reset}>
                   Book another time
                 </button>
